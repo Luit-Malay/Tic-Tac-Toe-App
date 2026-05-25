@@ -1,0 +1,161 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    min-height: 100vh;
+    background-color: #548687;
+    text-align: center;
+      display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    height: 70vh;
+}
+
+.game{
+    height: 60vmin;
+    width: 60vmin;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5vmin;
+}
+
+.box{
+    height: 18vmin;
+    width: 18vmin;
+    border-radius: 1rem;
+    border: none;
+    box-shadow: 0 0 1rem rgba(0,0,0,0.3);
+    font-size: 8vmin;
+    color: #b0413e;
+    background-color: #ffffc7;
+}
+
+#reset-btn{
+    padding: 1rem;
+    font-size: 1.25rem;
+    background-color: #191913;
+    color: white;
+    border-radius: 1rem;
+    border: none;
+}
+#new-btn{
+
+    padding: 1rem;
+    font-size: 1.25rem;
+    background-color: #191913;
+    color: white;
+    border-radius: 1rem;
+    border: none;
+}
+
+#msg{
+    color: #ffffc7;
+    font-size: 17vmin;
+}
+
+.msg-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+
+    height: 100vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.hide{
+    display: none;
+}
+/* =========================
+   LOADING SCREEN
+========================= */
+
+#loader{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    flex-direction: column;
+    animation: fadeOut 1s ease forwards;
+    animation-delay: 2.5s;
+}
+
+.logo-container{
+    text-align: center;
+}
+
+.logo{
+    font-size: 90px;
+    color: cyan;
+    font-family: Arial, sans-serif;
+    letter-spacing: 10px;
+    text-shadow:
+        0 0 10px cyan,
+        0 0 20px cyan,
+        0 0 40px cyan;
+    animation: pulse 1.5s infinite;
+}
+
+.creation-text{
+    color: white;
+    font-size: 22px;
+    letter-spacing: 5px;
+    margin-top: -20px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    margin-top: 30px;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    padding: 15px;
+}
+
+footer span{
+    color: cyan;
+    font-weight: bold;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes pulse{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.1);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeOut{
+    to{
+        opacity: 0;
+        visibility: hidden;
+    }
+}
