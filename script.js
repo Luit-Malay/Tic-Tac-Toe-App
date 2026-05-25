@@ -10,16 +10,27 @@ let turnO = true;
    LOADER
 ========================= */
 
-window.addEventListener("load", () => {
+
+window.onload = function () {
 
     const loader = document.getElementById("loader");
 
+    loader.style.display = "flex";
+
     setTimeout(() => {
 
-        loader.style.display = "none";
+        loader.style.animation = "fadeOut 1s forwards";
+
+        setTimeout(() => {
+
+            loader.remove();
+
+        }, 1000);
 
     }, 2500);
-});
+
+};
+
 
 /* =========================
    WIN PATTERNS
