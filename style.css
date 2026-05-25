@@ -1,99 +1,142 @@
-
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body{
     min-height: 100vh;
     background-color: #548687;
     text-align: center;
-      display: flex;
-    justify-content: center;
-    align-items: center;
+    overflow-x: hidden;
+}
+
+/* =========================
+   MAIN GAME
+========================= */
+
+main{
+    width: 100%;
+    padding-top: 2rem;
+}
+
+h1{
+    font-size: 4rem;
+    color: black;
+    margin-bottom: 2rem;
 }
 
 .container{
-    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .game{
     height: 60vmin;
     width: 60vmin;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+
     gap: 1.5vmin;
 }
 
 .box{
     height: 18vmin;
     width: 18vmin;
+
     border-radius: 1rem;
     border: none;
+
     box-shadow: 0 0 1rem rgba(0,0,0,0.3);
+
     font-size: 8vmin;
+    font-weight: bold;
+
     color: #b0413e;
     background-color: #ffffc7;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
 }
 
-#reset-btn{
-    padding: 1rem;
-    font-size: 1.25rem;
-    background-color: #191913;
-    color: white;
-    border-radius: 1rem;
-    border: none;
+.box:hover{
+    transform: scale(1.03);
 }
+
+#reset-btn,
 #new-btn{
+    padding: 1rem 2rem;
 
-    padding: 1rem;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
+
     background-color: #191913;
     color: white;
+
     border-radius: 1rem;
     border: none;
+
+    cursor: pointer;
+
+    margin-top: 2rem;
 }
+
+/* =========================
+   WIN MESSAGE
+========================= */
 
 #msg{
     color: #ffffc7;
-    font-size: 17vmin;
+    font-size: 8vmin;
+    font-weight: bold;
 }
 
 .msg-container{
-    position: absolute;
+    position: fixed;
+
     top: 0;
     left: 0;
+
     width: 100%;
     height: 100vh;
-    background-color: rgba(0,0,0,0.5);
 
-    height: 100vmin;
+    background-color: rgba(0,0,0,0.7);
+
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 4rem;
+
+    gap: 2rem;
+
+    z-index: 999;
 }
 
 .hide{
     display: none;
 }
+
 /* =========================
    LOADING SCREEN
 ========================= */
 
 #loader{
     position: fixed;
+
     width: 100%;
     height: 100vh;
+
     background: black;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
     flex-direction: column;
+
+    z-index: 9999;
+
     animation: fadeOut 1s ease forwards;
     animation-delay: 2.5s;
 }
@@ -104,20 +147,28 @@ body{
 
 .logo{
     font-size: 90px;
+
     color: cyan;
+
     font-family: Arial, sans-serif;
+
     letter-spacing: 10px;
+
     text-shadow:
         0 0 10px cyan,
         0 0 20px cyan,
         0 0 40px cyan;
+
     animation: pulse 1.5s infinite;
 }
 
 .creation-text{
     color: white;
+
     font-size: 22px;
+
     letter-spacing: 5px;
+
     margin-top: -20px;
 }
 
@@ -126,11 +177,15 @@ body{
 ========================= */
 
 footer{
-    margin-top: 30px;
+    margin-top: 2rem;
+
     text-align: center;
+
     color: white;
-    font-size: 18px;
-    padding: 15px;
+
+    font-size: 1.1rem;
+
+    padding-bottom: 2rem;
 }
 
 footer span{
@@ -146,9 +201,11 @@ footer span{
     0%{
         transform: scale(1);
     }
+
     50%{
         transform: scale(1.1);
     }
+
     100%{
         transform: scale(1);
     }
@@ -161,59 +218,87 @@ footer span{
     }
 }
 
-@media (max-width: 768px) {
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
 
-    h1{
-        font-size: 2rem;
-        margin-top: 1rem;
-    }
+@media (max-width: 768px){
 
-    .container{
-        height: auto;
-        width: 100%;
+    body{
         padding: 1rem;
     }
 
-    .game{
-        width: 90vw;
-        height: 90vw;
+    main{
+        width: 100%;
+    }
 
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+    h1{
+        font-size: 3rem;
+
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .container{
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .game{
+        width: 92vw;
+        height: 92vw;
+
         gap: 3vw;
     }
 
     .box{
         width: 100%;
         height: 100%;
-        font-size: 12vw;
-        border-radius: 1rem;
+
+        font-size: 14vw;
     }
 
-    #reset-btn{
+    #reset-btn,
+    #new-btn{
+        display: block;
+
+        margin-left: auto;
+        margin-right: auto;
         margin-top: 2rem;
+
         padding: 1rem 2rem;
-        font-size: 1rem;
+
+        font-size: 1.2rem;
     }
 
     footer{
         margin-top: 2rem;
+
+        font-size: 1rem;
+
+        line-height: 1.5;
+    }
+
+    #msg{
+        font-size: 2rem;
+
         text-align: center;
-        font-size: 0.9rem;
-        padding-bottom: 1rem;
+
+        padding: 1rem;
     }
 
     .logo{
-        font-size: 2rem;
+        font-size: 2.5rem;
+
+        letter-spacing: 4px;
     }
 
     .creation-text{
         font-size: 1rem;
-    }
 
-    #msg{
-        font-size: 1.8rem;
-        text-align: center;
-        padding: 1rem;
+        margin-top: 0;
     }
 }
