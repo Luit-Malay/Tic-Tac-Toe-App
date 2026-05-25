@@ -1,44 +1,467 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
+
+    <title>Luit Malay - Tic Tac Toe</title>
+
+    <!-- =========================
+         GOOGLE FONTS
+    ========================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- =========================
+         CSS FILE
+    ========================== -->
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
-    <div class="msg-container hide">
-        <p id="msg">Winner</p>
-         <button id="new-btn">New Game</button>
+
+    <!-- =========================
+         PARTICLE BACKGROUND
+    ========================== -->
+
+    <div id="particles"></div>
+
+    <!-- =========================
+         LOADER SCREEN
+    ========================== -->
+
+    <div id="loader">
+
+        <div class="loader-overlay"></div>
+
+        <div class="loader-content">
+
+            <h1 class="loader-logo">
+                LM
+            </h1>
+
+            <h2 class="loader-title">
+                LUIT MALAY
+            </h2>
+
+            <p class="loader-subtitle">
+                A Cinematic Tactical Experience
+            </p>
+
+            <div class="loader-bar">
+
+                <div class="loader-progress"></div>
+
+            </div>
+
+            <p class="loader-loading-text">
+                Initializing Battlefield...
+            </p>
+
+        </div>
+
     </div>
-    <main>
-  <h1> Tic Tac Toe</h1>
-  <div class="container">
-  <div class="game">
-   <button class="box"></button>
-    <button class="box"></button> 
-     <button class="box"></button>
-      <button class="box"></button>
-       <button class="box"></button>
-        <button class="box"></button>
-         <button class="box"></button>
-          <button class="box"></button>
-           <button class="box"></button>
-  </div> 
-  </div>
-  <button id="reset-btn">Reset Game</button>
-    </main>
-  
-    <footer>
-    Designed by <span>Luit Malay</span>
-</footer>
-<div id="loader">
-    <div class="logo-container">
-        <h1 class="logo">LM creations</h1>
-        <p class="creation-text">Creations</p>
+
+    <!-- =========================
+         MAIN GAME WRAPPER
+    ========================== -->
+
+    <div class="main-wrapper">
+
+        <!-- =========================
+             TOP BAR
+        ========================== -->
+
+        <header class="top-bar">
+
+            <div class="logo-section">
+
+                <h1 class="main-title">
+                    TIC TAC TOE
+                </h1>
+
+                <p class="title-subtitle">
+                    A Luit Malay Creation
+                </p>
+
+            </div>
+
+            <!-- =========================
+                 THEME SWITCHER
+            ========================== -->
+
+            <div class="theme-controls">
+
+                <button class="theme-btn active-theme" id="cyber-theme">
+                    Cyber
+                </button>
+
+                <button class="theme-btn" id="galaxy-theme">
+                    Galaxy
+                </button>
+
+                <button class="theme-btn" id="blood-theme">
+                    Crimson
+                </button>
+
+            </div>
+
+        </header>
+
+        <!-- =========================
+             GAME STATUS PANEL
+        ========================== -->
+
+        <section class="status-panel">
+
+            <div class="turn-container">
+
+                <p class="turn-text">
+                    Current Turn
+                </p>
+
+                <div class="turn-indicator">
+
+                    <span id="player-turn">
+                        O
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- =========================
+                 SCOREBOARD
+            ========================== -->
+
+            <div class="scoreboard">
+
+                <div class="score-card">
+
+                    <h2>
+                        O
+                    </h2>
+
+                    <p id="o-score">
+                        0
+                    </p>
+
+                </div>
+
+                <div class="score-card">
+
+                    <h2>
+                        X
+                    </h2>
+
+                    <p id="x-score">
+                        0
+                    </p>
+
+                </div>
+
+                <div class="score-card">
+
+                    <h2>
+                        Draw
+                    </h2>
+
+                    <p id="draw-score">
+                        0
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =========================
+             QUOTE SECTION
+        ========================== -->
+
+        <section class="quote-section">
+
+            <p id="quote-text">
+
+                “Every move defines destiny.”
+
+            </p>
+
+        </section>
+
+        <!-- =========================
+             GAME CONTAINER
+        ========================== -->
+
+        <main>
+
+            <div class="container">
+
+                <!-- =========================
+                     GAME BOARD
+                ========================== -->
+
+                <div class="game">
+
+                    <button class="box" data-index="0"></button>
+
+                    <button class="box" data-index="1"></button>
+
+                    <button class="box" data-index="2"></button>
+
+                    <button class="box" data-index="3"></button>
+
+                    <button class="box" data-index="4"></button>
+
+                    <button class="box" data-index="5"></button>
+
+                    <button class="box" data-index="6"></button>
+
+                    <button class="box" data-index="7"></button>
+
+                    <button class="box" data-index="8"></button>
+
+                    <!-- =========================
+                         WINNING LINE
+                    ========================== -->
+
+                    <div id="winning-line"></div>
+
+                </div>
+
+            </div>
+
+            <!-- =========================
+                 CONTROL BUTTONS
+            ========================== -->
+
+            <div class="controls">
+
+                <button id="reset-btn" class="control-btn">
+                    Reset Battlefield
+                </button>
+
+                <button id="new-btn" class="control-btn">
+                    New Match
+                </button>
+
+            </div>
+
+        </main>
+
+        <!-- =========================
+             GAME MODES
+        ========================== -->
+
+        <section class="game-modes">
+
+            <h2 class="section-title">
+                Battle Modes
+            </h2>
+
+            <div class="mode-container">
+
+                <button class="mode-btn active-mode" id="pvp-mode">
+
+                    Human VS Human
+
+                </button>
+
+                <button class="mode-btn" id="easy-ai">
+
+                    Beginner Soul
+
+                </button>
+
+                <button class="mode-btn" id="medium-ai">
+
+                    Tactical Mind
+
+                </button>
+
+                <button class="mode-btn" id="hard-ai">
+
+                    Invincible Conqueror
+
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- =========================
+             MOVE HISTORY
+        ========================== -->
+
+        <section class="history-section">
+
+            <h2 class="section-title">
+                Battle History
+            </h2>
+
+            <div id="history-list">
+
+                <p class="empty-history">
+                    No moves yet...
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- =========================
+             STATISTICS PANEL
+        ========================== -->
+
+        <section class="stats-section">
+
+            <h2 class="section-title">
+                Player Statistics
+            </h2>
+
+            <div class="stats-grid">
+
+                <div class="stat-box">
+
+                    <h3>
+                        Total Games
+                    </h3>
+
+                    <p id="total-games">
+                        0
+                    </p>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <h3>
+                        Win Streak
+                    </h3>
+
+                    <p id="win-streak">
+                        0
+                    </p>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <h3>
+                        Fastest Victory
+                    </h3>
+
+                    <p id="fastest-win">
+                        0 Turns
+                    </p>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <h3>
+                        Dominant Player
+                    </h3>
+
+                    <p id="dominant-player">
+                        None
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =========================
+             GAME OVER MODAL
+        ========================== -->
+
+        <div class="msg-container hide">
+
+            <div class="msg-box">
+
+                <h1 id="msg-title">
+                    Victory
+                </h1>
+
+                <p id="msg">
+
+                    Tactical Domination Achieved
+
+                </p>
+
+                <div class="modal-buttons">
+
+                    <button id="play-again-btn">
+
+                        Play Again
+
+                    </button>
+
+                    <button id="close-msg-btn">
+
+                        Close
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- =========================
+             AUDIO SECTION
+        ========================== -->
+
+        <audio id="click-sound" src="sounds/click.mp3"></audio>
+
+        <audio id="win-sound" src="sounds/win.mp3"></audio>
+
+        <audio id="draw-sound" src="sounds/draw.mp3"></audio>
+
+        <audio id="hover-sound" src="sounds/hover.mp3"></audio>
+
+        <audio id="bg-music" src="sounds/background.mp3" loop></audio>
+
+        <!-- =========================
+             FOOTER
+        ========================== -->
+
+        <footer>
+
+            <h2>
+                Designed & Engineered by
+                <span>
+                    Luit Malay
+                </span>
+            </h2>
+
+            <p>
+                “Pain creates warriors.”
+            </p>
+
+        </footer>
+
     </div>
-</div>
-  <script src="script.js"> </script>
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script src="script.js"></script>
+
 </body>
 
 </html>

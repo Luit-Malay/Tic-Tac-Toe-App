@@ -1,128 +1,111 @@
+/* =========================================
+   GLOBAL RESET
+========================================= */
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* =========================================
+   ROOT COLORS
+========================================= */
+
+:root{
+
+    --bg-color: #050816;
+
+    --primary-glow: cyan;
+
+    --secondary-glow: #ff004c;
+
+    --text-color: white;
+
+    --box-bg: rgba(255,255,255,0.08);
+
+    --glass-border: rgba(255,255,255,0.15);
+
+    --button-bg: linear-gradient(135deg,#00f0ff,#0077ff);
+
+    --danger-bg: linear-gradient(135deg,#ff004c,#ff2f6d);
+
+    --shadow-glow:
+        0 0 10px rgba(0,255,255,0.5),
+        0 0 20px rgba(0,255,255,0.4);
+
+}
+
+/* =========================================
+   BODY
+========================================= */
+
 body{
+
     min-height: 100vh;
-    background-color: #548687;
-    text-align: center;
+
+    background:
+        radial-gradient(circle at top,#0f172a,#050816);
+
     overflow-x: hidden;
+
+    font-family: 'Orbitron', sans-serif;
+
+    color: var(--text-color);
+
+    position: relative;
 }
 
-/* =========================
-   MAIN GAME
-========================= */
+/* =========================================
+   PARTICLE BACKGROUND
+========================================= */
 
-main{
-    width: 100%;
-    padding-top: 2rem;
-}
+#particles{
 
-h1{
-    font-size: 4rem;
-    color: black;
-    margin-bottom: 2rem;
-}
-
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.game{
-    height: 60vmin;
-    width: 60vmin;
-
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-
-    gap: 1.5vmin;
-}
-
-.box{
-    height: 18vmin;
-    width: 18vmin;
-
-    border-radius: 1rem;
-    border: none;
-
-    box-shadow: 0 0 1rem rgba(0,0,0,0.3);
-
-    font-size: 8vmin;
-    font-weight: bold;
-
-    color: #b0413e;
-    background-color: #ffffc7;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-.box:hover{
-    transform: scale(1.03);
-}
-
-#reset-btn,
-#new-btn{
-    padding: 1rem 2rem;
-
-    font-size: 1.2rem;
-
-    background-color: #191913;
-    color: white;
-
-    border-radius: 1rem;
-    border: none;
-
-    cursor: pointer;
-
-    margin-top: 2rem;
-}
-
-/* =========================
-   WIN MESSAGE
-========================= */
-
-#msg{
-    color: #ffffc7;
-    font-size: 8vmin;
-    font-weight: bold;
-}
-
-.msg-container{
     position: fixed;
+
+    width: 100%;
+    height: 100%;
 
     top: 0;
     left: 0;
 
-    width: 100%;
-    height: 100vh;
+    overflow: hidden;
 
-    background-color: rgba(0,0,0,0.7);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    gap: 2rem;
-
-    z-index: 999;
+    z-index: -1;
 }
 
-.hide{
-    display: none;
+#particles::before,
+#particles::after{
+
+    content: "";
+
+    position: absolute;
+
+    width: 200%;
+    height: 200%;
+
+    background-image:
+        radial-gradient(circle, rgba(0,255,255,0.3) 1px, transparent 1px);
+
+    background-size: 50px 50px;
+
+    animation: particlesMove 60s linear infinite;
 }
 
-/* =========================
-   LOADING SCREEN
-========================= */
+#particles::after{
+
+    animation-direction: reverse;
+
+    opacity: 0.5;
+}
+
+/* =========================================
+   LOADER
+========================================= */
 
 #loader{
+
     position: fixed;
 
     top: 0;
@@ -134,82 +117,840 @@ h1{
     background: black;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
+
     flex-direction: column;
 
-    z-index: 9999;
+    z-index: 999999;
 
-    opacity: 1;
-
-    transition: opacity 1s ease;
+    overflow: hidden;
 }
 
-.logo-container{
+.loader-overlay{
+
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background:
+        radial-gradient(circle,
+        rgba(0,255,255,0.1),
+        black);
+
+    animation: pulseBackground 4s infinite;
+}
+
+.loader-content{
+
+    position: relative;
+
+    z-index: 2;
+
     text-align: center;
 }
 
-.logo{
+.loader-logo{
 
-    font-size: 4rem;
-
+    font-size: 9rem;
 
     color: cyan;
-
-    font-family: Arial, sans-serif;
-
-    letter-spacing: 10px;
 
     text-shadow:
         0 0 10px cyan,
         0 0 20px cyan,
-        0 0 40px cyan;
+        0 0 40px cyan,
+        0 0 80px cyan;
 
-    animation: pulse 1.5s infinite;
+    animation:
+        logoPulse 2s infinite,
+        glitch 3s infinite;
+
+    letter-spacing: 10px;
 }
 
-.creation-text{
-    color: white;
+.loader-title{
 
-    font-size: 22px;
+    font-size: 2.5rem;
+
+    margin-top: -10px;
+
+    letter-spacing: 8px;
+
+    color: white;
+}
+
+.loader-subtitle{
+
+    margin-top: 1rem;
+
+    font-size: 1rem;
+
+    color: rgba(255,255,255,0.7);
+
+    letter-spacing: 4px;
+}
+
+.loader-bar{
+
+    width: 300px;
+
+    height: 8px;
+
+    margin: 2rem auto;
+
+    background: rgba(255,255,255,0.1);
+
+    border-radius: 50px;
+
+    overflow: hidden;
+}
+
+.loader-progress{
+
+    height: 100%;
+
+    width: 0%;
+
+    background: linear-gradient(90deg,cyan,#00ff95);
+
+    box-shadow: 0 0 20px cyan;
+
+    animation: loading 3s forwards;
+}
+
+.loader-loading-text{
+
+    color: rgba(255,255,255,0.8);
+
+    letter-spacing: 3px;
+
+    animation: blink 1s infinite;
+}
+
+/* =========================================
+   MAIN WRAPPER
+========================================= */
+
+.main-wrapper{
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    padding: 2rem;
+}
+
+/* =========================================
+   TOP BAR
+========================================= */
+
+.top-bar{
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 2rem;
+
+    margin-bottom: 2rem;
+}
+
+.main-title{
+
+    font-size: 5rem;
+
+    font-family: 'Cinzel', serif;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,0.5),
+        0 0 20px rgba(0,255,255,0.5);
+
+    animation: titleGlow 3s infinite alternate;
+}
+
+.title-subtitle{
+
+    margin-top: 0.5rem;
+
+    color: rgba(255,255,255,0.7);
 
     letter-spacing: 5px;
-
-    margin-top: -20px;
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* =========================================
+   THEME BUTTONS
+========================================= */
 
-footer{
-    margin-top: 2rem;
+.theme-controls{
 
-    text-align: center;
+    display: flex;
+
+    gap: 1rem;
+
+    flex-wrap: wrap;
+}
+
+.theme-btn{
+
+    padding: 0.9rem 1.5rem;
+
+    border: none;
+
+    border-radius: 50px;
+
+    background: rgba(255,255,255,0.1);
 
     color: white;
 
-    font-size: 1.1rem;
+    cursor: pointer;
 
-    padding-bottom: 2rem;
+    transition: 0.3s ease;
+
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
-footer span{
-    color: cyan;
+.theme-btn:hover{
+
+    transform: translateY(-3px);
+
+    box-shadow: var(--shadow-glow);
+}
+
+.active-theme{
+
+    background: cyan;
+
+    color: black;
+
     font-weight: bold;
 }
 
-/* =========================
-   ANIMATIONS
-========================= */
+/* =========================================
+   STATUS PANEL
+========================================= */
 
-@keyframes pulse{
+.status-panel{
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 2rem;
+
+    margin-bottom: 2rem;
+}
+
+/* =========================================
+   TURN INDICATOR
+========================================= */
+
+.turn-container{
+
+    padding: 1rem 2rem;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.05);
+
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    box-shadow: 0 0 20px rgba(0,255,255,0.2);
+}
+
+.turn-text{
+
+    margin-bottom: 0.7rem;
+
+    letter-spacing: 2px;
+}
+
+.turn-indicator{
+
+    font-size: 3rem;
+
+    color: cyan;
+
+    text-shadow: 0 0 20px cyan;
+
+    animation: turnPulse 1s infinite alternate;
+}
+
+/* =========================================
+   SCOREBOARD
+========================================= */
+
+.scoreboard{
+
+    display: flex;
+
+    gap: 1.5rem;
+
+    flex-wrap: wrap;
+}
+
+.score-card{
+
+    width: 130px;
+
+    padding: 1.2rem;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.05);
+
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    text-align: center;
+
+    transition: 0.3s ease;
+}
+
+.score-card:hover{
+
+    transform: translateY(-6px);
+
+    box-shadow: var(--shadow-glow);
+}
+
+.score-card h2{
+
+    font-size: 2rem;
+
+    margin-bottom: 0.5rem;
+}
+
+.score-card p{
+
+    font-size: 1.7rem;
+
+    color: cyan;
+}
+
+/* =========================================
+   QUOTE SECTION
+========================================= */
+
+.quote-section{
+
+    width: 100%;
+
+    margin: 2rem auto;
+
+    text-align: center;
+}
+
+#quote-text{
+
+    font-size: 1.3rem;
+
+    font-style: italic;
+
+    color: rgba(255,255,255,0.7);
+
+    animation: fadeQuote 5s infinite;
+}
+
+/* =========================================
+   GAME BOARD
+========================================= */
+
+.container{
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    margin-top: 2rem;
+}
+
+.game{
+
+    width: 65vmin;
+    height: 65vmin;
+
+    display: grid;
+
+    grid-template-columns: repeat(3,1fr);
+
+    gap: 1rem;
+
+    position: relative;
+}
+
+/* =========================================
+   BOXES
+========================================= */
+
+.box{
+
+    border: none;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.07);
+
+    backdrop-filter: blur(10px);
+
+    color: white;
+
+    font-size: 7rem;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+
+    box-shadow:
+        inset 0 0 10px rgba(255,255,255,0.05),
+        0 0 10px rgba(0,0,0,0.5);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.box::before{
+
+    content: "";
+
+    position: absolute;
+
+    width: 150%;
+    height: 150%;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent,
+            rgba(255,255,255,0.2),
+            transparent
+        );
+
+    transform: rotate(25deg);
+
+    top: -120%;
+    left: -120%;
+
+    transition: 0.6s;
+}
+
+.box:hover::before{
+
+    top: 100%;
+    left: 100%;
+}
+
+.box:hover{
+
+    transform: scale(1.05);
+
+    box-shadow:
+        0 0 20px cyan,
+        0 0 40px rgba(0,255,255,0.3);
+}
+
+/* =========================================
+   WIN EFFECT
+========================================= */
+
+.win{
+
+    animation: winnerGlow 1s infinite alternate;
+}
+
+/* =========================================
+   WINNING LINE
+========================================= */
+
+#winning-line{
+
+    position: absolute;
+
+    width: 0;
+
+    height: 8px;
+
+    background: cyan;
+
+    box-shadow:
+        0 0 10px cyan,
+        0 0 20px cyan,
+        0 0 40px cyan;
+
+    border-radius: 50px;
+
+    transform-origin: left center;
+
+    pointer-events: none;
+}
+
+/* =========================================
+   CONTROL BUTTONS
+========================================= */
+
+.controls{
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 2rem;
+
+    margin-top: 3rem;
+}
+
+.control-btn{
+
+    padding: 1rem 2rem;
+
+    border: none;
+
+    border-radius: 50px;
+
+    font-size: 1rem;
+
+    color: white;
+
+    background: var(--button-bg);
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+
+    box-shadow:
+        0 0 15px rgba(0,255,255,0.4);
+}
+
+.control-btn:hover{
+
+    transform: translateY(-5px) scale(1.03);
+
+    box-shadow:
+        0 0 30px rgba(0,255,255,0.7);
+}
+
+/* =========================================
+   MODES
+========================================= */
+
+.game-modes{
+
+    margin-top: 5rem;
+
+    text-align: center;
+}
+
+.section-title{
+
+    font-size: 2.2rem;
+
+    margin-bottom: 2rem;
+
+    text-shadow: 0 0 10px cyan;
+}
+
+.mode-container{
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 1rem;
+}
+
+.mode-btn{
+
+    padding: 1rem 1.8rem;
+
+    border: none;
+
+    border-radius: 50px;
+
+    background: rgba(255,255,255,0.08);
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.mode-btn:hover{
+
+    transform: scale(1.05);
+
+    box-shadow: var(--shadow-glow);
+}
+
+.active-mode{
+
+    background: cyan;
+
+    color: black;
+
+    font-weight: bold;
+}
+
+/* =========================================
+   HISTORY
+========================================= */
+
+.history-section{
+
+    margin-top: 5rem;
+
+    text-align: center;
+}
+
+#history-list{
+
+    width: 90%;
+
+    max-width: 700px;
+
+    margin: auto;
+
+    padding: 2rem;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.05);
+
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    min-height: 200px;
+}
+
+.empty-history{
+
+    color: rgba(255,255,255,0.5);
+}
+
+/* =========================================
+   STATS
+========================================= */
+
+.stats-section{
+
+    margin-top: 5rem;
+
+    text-align: center;
+}
+
+.stats-grid{
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+
+    gap: 2rem;
+
+    margin-top: 2rem;
+}
+
+.stat-box{
+
+    padding: 2rem;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.05);
+
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    transition: 0.3s ease;
+}
+
+.stat-box:hover{
+
+    transform: translateY(-8px);
+
+    box-shadow: var(--shadow-glow);
+}
+
+.stat-box h3{
+
+    margin-bottom: 1rem;
+}
+
+.stat-box p{
+
+    font-size: 2rem;
+
+    color: cyan;
+}
+
+/* =========================================
+   MODAL
+========================================= */
+
+.msg-container{
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    background: rgba(0,0,0,0.8);
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 99999;
+
+    backdrop-filter: blur(10px);
+}
+
+.msg-box{
+
+    width: 90%;
+    max-width: 500px;
+
+    padding: 3rem;
+
+    border-radius: 30px;
+
+    background: rgba(255,255,255,0.08);
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    text-align: center;
+
+    animation: popup 0.5s ease;
+}
+
+#msg-title{
+
+    font-size: 3rem;
+
+    color: cyan;
+
+    margin-bottom: 1rem;
+}
+
+#msg{
+
+    font-size: 1.3rem;
+
+    margin-bottom: 2rem;
+}
+
+.modal-buttons{
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 1rem;
+
+    flex-wrap: wrap;
+}
+
+.modal-buttons button{
+
+    padding: 1rem 2rem;
+
+    border: none;
+
+    border-radius: 50px;
+
+    cursor: pointer;
+
+    background: var(--button-bg);
+
+    color: white;
+}
+
+.hide{
+
+    display: none;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer{
+
+    margin-top: 6rem;
+
+    padding-bottom: 3rem;
+
+    text-align: center;
+}
+
+footer h2{
+
+    font-size: 1.4rem;
+}
+
+footer span{
+
+    color: cyan;
+
+    text-shadow: 0 0 10px cyan;
+}
+
+footer p{
+
+    margin-top: 1rem;
+
+    color: rgba(255,255,255,0.6);
+
+    font-style: italic;
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes logoPulse{
+
     0%{
         transform: scale(1);
     }
 
     50%{
-        transform: scale(1.1);
+        transform: scale(1.08);
     }
 
     100%{
@@ -217,94 +958,167 @@ footer span{
     }
 }
 
-@keyframes fadeOut{
-    to{
-        opacity: 0;
-        visibility: hidden;
+@keyframes glitch{
+
+    0%{
+        transform: translate(0);
+    }
+
+    20%{
+        transform: translate(-2px,2px);
+    }
+
+    40%{
+        transform: translate(-2px,-2px);
+    }
+
+    60%{
+        transform: translate(2px,2px);
+    }
+
+    80%{
+        transform: translate(2px,-2px);
+    }
+
+    100%{
+        transform: translate(0);
     }
 }
 
-/* =========================
+@keyframes loading{
+
+    from{
+        width: 0%;
+    }
+
+    to{
+        width: 100%;
+    }
+}
+
+@keyframes blink{
+
+    50%{
+        opacity: 0.4;
+    }
+}
+
+@keyframes pulseBackground{
+
+    50%{
+        transform: scale(1.1);
+    }
+}
+
+@keyframes titleGlow{
+
+    from{
+        text-shadow:
+            0 0 10px cyan;
+    }
+
+    to{
+        text-shadow:
+            0 0 20px cyan,
+            0 0 40px cyan;
+    }
+}
+
+@keyframes turnPulse{
+
+    from{
+        transform: scale(1);
+    }
+
+    to{
+        transform: scale(1.1);
+    }
+}
+
+@keyframes winnerGlow{
+
+    from{
+        box-shadow:
+            0 0 10px cyan;
+    }
+
+    to{
+        box-shadow:
+            0 0 20px cyan,
+            0 0 50px cyan;
+    }
+}
+
+@keyframes popup{
+
+    from{
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    to{
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeQuote{
+
+    50%{
+        opacity: 0.5;
+    }
+}
+
+@keyframes particlesMove{
+
+    from{
+        transform: translateY(0);
+    }
+
+    to{
+        transform: translateY(-1000px);
+    }
+}
+
+/* =========================================
    MOBILE RESPONSIVE
-========================= */
+========================================= */
 
-@media (max-width: 768px){
+@media(max-width:768px){
 
-    body{
-        padding: 1rem;
-    }
+    .main-title{
 
-    main{
-        width: 100%;
-    }
-
-    h1{
         font-size: 3rem;
-
-        margin-top: 1rem;
-        margin-bottom: 2rem;
-    }
-
-    .container{
-        width: 100%;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
     .game{
+
         width: 92vw;
         height: 92vw;
-
-        gap: 3vw;
     }
 
     .box{
-        width: 100%;
-        height: 100%;
 
-        font-size: 14vw;
+        font-size: 5rem;
     }
 
-    #reset-btn,
-    #new-btn{
-        display: block;
+    .status-panel{
 
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 2rem;
-
-        padding: 1rem 2rem;
-
-        font-size: 1.2rem;
+        justify-content: center;
     }
 
-    footer{
-        margin-top: 2rem;
+    .loader-logo{
 
-        font-size: 1rem;
-
-        line-height: 1.5;
+        font-size: 5rem;
     }
 
-    #msg{
-        font-size: 2rem;
+    .loader-title{
 
-        text-align: center;
-
-        padding: 1rem;
+        font-size: 1.5rem;
     }
 
-    .logo{
-        font-size: 2.5rem;
+    .loader-bar{
 
-        letter-spacing: 4px;
-    }
-
-    .creation-text{
-        font-size: 1rem;
-
-        margin-top: 0;
+        width: 220px;
     }
 }
